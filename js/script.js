@@ -1,0 +1,1 @@
+// script.js - for interactive elements (e.g., navigation, sliders) 
