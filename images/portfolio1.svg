@@ -1,1 +1,8 @@
- 
+<svg width="400" height="500" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="500" rx="32" fill="#e6007a"/>
+  <circle cx="200" cy="220" r="80" fill="#fff" fill-opacity="0.15"/>
+  <circle cx="200" cy="220" r="60" fill="#fff" fill-opacity="0.25"/>
+  <rect x="180" y="200" width="40" height="10" rx="5" fill="#fff"/>
+  <rect x="195" y="185" width="10" height="40" rx="5" fill="#fff"/>
+  <text x="200" y="340" text-anchor="middle" fill="#fff" font-size="32" font-family="Montserrat, Arial, sans-serif" font-weight="700">DESIGN BRANDING</text>
+</svg> 
