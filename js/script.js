@@ -1,16 +1,13 @@
 // Header and Navigation Functionality
 document.addEventListener('DOMContentLoaded', function() {
     // Smooth scrolling for navigation links
-    const navLinks = document.querySelectorAll('.main-nav a[href^="#"]');
-    navLinks.forEach(link => {
-        link.addEventListener('click', function(e) {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetSection = document.querySelector(targetId);
-            if (targetSection) {
-                targetSection.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth'
                 });
             }
         });
@@ -82,5 +79,45 @@ document.addEventListener('DOMContentLoaded', function() {
                 mainNav.classList.remove('mobile-open');
             });
         });
+    }
+}); 
+
+// Skill cards animation
+function animateSkillCards() {
+    const categories = document.querySelectorAll('.skills-category');
+    
+    categories.forEach(category => {
+        const cards = category.querySelectorAll('.skill-card');
+        let delay = 200; // Initial delay for first card in each category
+        
+        cards.forEach((card, index) => {
+            setTimeout(() => {
+                card.classList.add('animate');
+            }, delay);
+            delay += 200; // Add delay for next card in the same category
+        });
+    });
+}
+
+// Intersection Observer for skills section
+const skillsSection = document.querySelector('.skills');
+const skillsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            animateSkillCards();
+            skillsObserver.unobserve(entry.target); // Only animate once
+        }
+    });
+}, { threshold: 0.2 }); // Trigger when 20% of the section is visible
+
+if (skillsSection) {
+    skillsObserver.observe(skillsSection);
+}
+
+// Also trigger animation if skills section is already visible on page load
+document.addEventListener('DOMContentLoaded', () => {
+    const skillsSection = document.querySelector('.skills');
+    if (skillsSection && window.scrollY + window.innerHeight > skillsSection.offsetTop) {
+        animateSkillCards();
     }
 }); 
