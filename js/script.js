@@ -120,4 +120,145 @@ document.addEventListener('DOMContentLoaded', () => {
     if (skillsSection && window.scrollY + window.innerHeight > skillsSection.offsetTop) {
         animateSkillCards();
     }
-}); 
+});
+
+// Projects functionality
+let currentProjectImages = [];
+let currentImageIndex = 0;
+
+// Read More/Less functionality
+function toggleReadMore(button) {
+    const card = button.closest('.project-card');
+    const fullDescription = card.querySelector('.project-full-description');
+    
+    if (fullDescription.classList.contains('show')) {
+        fullDescription.classList.remove('show');
+        button.textContent = 'Read More';
+    } else {
+        fullDescription.classList.add('show');
+        button.textContent = 'Read Less';
+    }
+}
+
+// Image Gallery Modal functionality
+function openImageGallery(images, startIndex = 0) {
+    currentProjectImages = images;
+    currentImageIndex = startIndex;
+    
+    const modal = document.getElementById('imageModal');
+    const modalImage = document.getElementById('modalImage');
+    const imageCounter = document.getElementById('imageCounter');
+    
+    modalImage.src = currentProjectImages[currentImageIndex];
+    updateImageCounter();
+    modal.style.display = 'block';
+    
+    // Prevent body scroll when modal is open
+    document.body.style.overflow = 'hidden';
+}
+
+function closeImageModal() {
+    const modal = document.getElementById('imageModal');
+    modal.style.display = 'none';
+    
+    // Restore body scroll
+    document.body.style.overflow = 'auto';
+}
+
+function changeImage(direction) {
+    currentImageIndex += direction;
+    
+    // Loop around if at the end or beginning
+    if (currentImageIndex >= currentProjectImages.length) {
+        currentImageIndex = 0;
+    } else if (currentImageIndex < 0) {
+        currentImageIndex = currentProjectImages.length - 1;
+    }
+    
+    const modalImage = document.getElementById('modalImage');
+    modalImage.style.opacity = '0';
+    
+    setTimeout(() => {
+        modalImage.src = currentProjectImages[currentImageIndex];
+        modalImage.style.opacity = '1';
+        updateImageCounter();
+    }, 150);
+}
+
+function updateImageCounter() {
+    const imageCounter = document.getElementById('imageCounter');
+    imageCounter.textContent = `${currentImageIndex + 1} / ${currentProjectImages.length}`;
+}
+
+// Modal event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const modal = document.getElementById('imageModal');
+    const closeBtn = document.querySelector('.close');
+    
+    // Close modal when clicking the X
+    if (closeBtn) {
+        closeBtn.addEventListener('click', closeImageModal);
+    }
+    
+    // Close modal when clicking outside the image
+    if (modal) {
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeImageModal();
+            }
+        });
+    }
+    
+    // Keyboard navigation
+    document.addEventListener('keydown', function(e) {
+        if (modal && modal.style.display === 'block') {
+            switch(e.key) {
+                case 'Escape':
+                    closeImageModal();
+                    break;
+                case 'ArrowLeft':
+                    changeImage(-1);
+                    break;
+                case 'ArrowRight':
+                    changeImage(1);
+                    break;
+            }
+        }
+    });
+});
+
+// Helper function to add a project card (for when you add projects)
+function addProjectCard(project) {
+    const projectsGrid = document.querySelector('.projects-grid');
+    
+    const projectCard = document.createElement('div');
+    projectCard.className = 'project-card';
+    
+    // Generate skills HTML
+    const skillsHTML = project.skills ? project.skills.map(skill => 
+        `<div class="skill-tag">
+            <i class="${skill.icon}"></i>
+            <span>${skill.name}</span>
+        </div>`
+    ).join('') : '';
+    
+    projectCard.innerHTML = `
+        <div class="project-image-container">
+            <img src="${project.coverImage}" alt="${project.title}" class="project-cover-image">
+            <button class="photo-album-btn" onclick="openImageGallery(['${project.images.join("', '")}'])">
+                <i class="fas fa-images"></i> Album
+            </button>
+        </div>
+        <div class="project-content">
+            <h3 class="project-title">${project.title}</h3>
+            <p class="project-short-description">${project.shortDescription}</p>
+            <div class="project-full-description">
+                ${project.fullDescription}
+            </div>
+            ${skillsHTML ? `<div class="project-skills">${skillsHTML}</div>` : ''}
+            <button class="read-more-btn" onclick="toggleReadMore(this)">Read More</button>
+        </div>
+    `;
+    
+    projectsGrid.appendChild(projectCard);
+} 
