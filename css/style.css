@@ -1707,9 +1707,9 @@ section {
 }
 
 .projects-header p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   color: #666;
-  max-width: 800px;
+  max-width: 900px;
   margin: 0 auto;
   line-height: 1.6;
 }
