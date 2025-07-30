@@ -1132,6 +1132,39 @@ p {
   margin: 12px 0 18px 0;
   font-weight: 700;
 }
+
+.contact-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.contact-header .section-label {
+  color: #e6007a;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.contact-header h2 {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 16px;
+  line-height: 1.2;
+}
+
+.contact-header p {
+  font-size: 1rem;
+  color: #666;
+  max-width: 600px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
 .contact-info-cards {
   display: flex;
   gap: 32px;
@@ -1164,6 +1197,47 @@ p {
 .contact-info-text {
   color: #444;
   font-size: 1rem;
+}
+
+.contact-info-text a {
+  color: #e6007a;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.contact-info-text a:hover {
+  color: #ff6b9d;
+  text-decoration: underline;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
+
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  background: #f8f9fa;
+  border: 2px solid #e6007a;
+  border-radius: 8px;
+  color: #e6007a;
+  font-size: 16px;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.social-link:hover {
+  background: #e6007a;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(230, 0, 122, 0.3);
 }
 .contact-form-box {
   background: #f4f7fb;
