@@ -1497,6 +1497,28 @@ p {
   scroll-margin-top: 56px; /* This accounts for the fixed header height */
 }
 
+/* Reduce bottom padding for larger screens */
+@media (min-width: 1200px) {
+  .skills {
+    padding: 60px 60px 30px 60px;
+  }
+  
+  .about {
+    padding: 20px 0 10px 0;
+  }
+}
+
+/* Further reduce bottom padding for very large screens */
+@media (min-width: 1600px) {
+  .skills {
+    padding: 60px 60px 20px 60px;
+  }
+  
+  .about {
+    padding: 20px 0 5px 0;
+  }
+}
+
 .skills-header {
   text-align: center;
   margin-top: 40px;
