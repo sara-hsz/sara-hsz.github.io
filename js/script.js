@@ -35,13 +35,30 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Light mode toggle (placeholder for future implementation)
+    // Dark mode toggle implementation
     const darkModeToggle = document.querySelector('.dark-mode-toggle');
+    
+    // Check for saved theme preference or default to light mode
+    const currentTheme = localStorage.getItem('theme') || 'light';
+    document.body.setAttribute('data-theme', currentTheme);
+    
+    if (currentTheme === 'dark') {
+        darkModeToggle.classList.add('active');
+    }
+    
     if (darkModeToggle) {
         darkModeToggle.addEventListener('click', function() {
-            // Light mode functionality will be implemented later
             this.classList.toggle('active');
-            console.log('Light mode toggle clicked - currently:', this.classList.contains('active') ? 'Light Mode' : 'Dark Mode');
+            
+            // Get current theme
+            const currentTheme = document.body.getAttribute('data-theme');
+            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+            
+            // Set new theme
+            document.body.setAttribute('data-theme', newTheme);
+            
+            // Save preference to localStorage
+            localStorage.setItem('theme', newTheme);
         });
     }
 
