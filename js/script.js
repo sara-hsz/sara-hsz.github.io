@@ -97,6 +97,31 @@ document.addEventListener('DOMContentLoaded', function() {
             });
         });
     }
+
+    // Back to Top button behavior
+    const backToTopBtn = document.querySelector('.back-to-top');
+    const showAfter = 300; // px
+    if (backToTopBtn) {
+        // Show/hide on scroll
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset || document.documentElement.scrollTop;
+            if (scrolled > showAfter) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+
+        // Click to scroll to top (header/home)
+        backToTopBtn.addEventListener('click', function() {
+            const homeSection = document.querySelector('#home') || document.body;
+            if (homeSection && homeSection.scrollIntoView) {
+                homeSection.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }
+        });
+    }
 }); 
 
 // Skill cards animation

@@ -2741,3 +2741,56 @@ section {
 [data-theme="dark"] .category-title {
   color: #e3e3e3 !important;
 }
+
+/* Back to Top Button */
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 24px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e6007a, #ff6b9d);
+  color: white;
+  border: none;
+  box-shadow: 0 8px 24px rgba(230, 0, 122, 0.25);
+  cursor: pointer;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(20px);
+  transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  z-index: 1200;
+}
+
+.back-to-top i {
+  font-size: 16px;
+}
+
+.back-to-top.show {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.back-to-top:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(230, 0, 122, 0.35);
+}
+
+/* Respect dark mode */
+[data-theme="dark"] .back-to-top {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+/* Avoid overlapping with mobile UI */
+@media (max-width: 900px) {
+  .back-to-top {
+    right: 12px;
+    bottom: 16px;
+    width: 40px;
+    height: 40px;
+  }
+}
