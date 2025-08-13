@@ -852,10 +852,47 @@ p {
   color: #b8005a;
 }
 @media (max-width: 900px) {
+  .hero {
+    min-height: 100vh; /* Ensure hero fits in viewport */
+    padding: 20px 0; /* Add some padding */
+    display: flex;
+    align-items: center;
+  }
+  
   .hero-content {
     flex-direction: column-reverse;
-    gap: 32px;
+    gap: 20px; /* Reduced from 32px */
     text-align: center;
+    justify-content: center;
+    height: auto;
+  }
+  
+  .hero-buttons {
+    justify-content: center;
+    margin-bottom: 16px; /* Reduced margin */
+  }
+  
+  .hero-text {
+    margin-bottom: 0;
+  }
+  
+  .hero-text h1 {
+    margin: 8px 0 0 0; /* Reduced margins */
+  }
+  
+  .hero-text h2 {
+    margin: 8px 0 12px 0; /* Reduced margins */
+  }
+  
+  .hero-text p {
+    margin-bottom: 20px; /* Reduced from 32px */
+    font-size: 0.95rem; /* Slightly smaller text */
+    line-height: 1.5;
+  }
+  
+  .hero-image {
+    margin-bottom: -60px; /* Reduce space between avatar and text on mobile */
+    min-height: auto;
   }
   .main-header .container {
     flex-direction: row;
@@ -2941,18 +2978,23 @@ section {
 }
 
 @media (max-width: 600px) {
-  .profile-wrapper { width: 320px; height: 320px; }
-  .profile-wrapper::before { width: 290px; height: 290px; }
-  .profile-wrapper::after { width: 250px; height: 250px; }
-  .hero-image img { width: 220px; height: 220px; }
+  .profile-wrapper { width: 280px; height: 280px; }
+  .profile-wrapper::before { width: 250px; height: 250px; }
+  .profile-wrapper::after { width: 220px; height: 220px; }
+  .hero-image img { width: 180px; height: 180px; }
 
   /* Slightly reduce hero text for small screens to maintain layout */
-  .hero-text h1 { font-size: 2rem; }
-  .hero-text h2 { font-size: 1.05rem; }
+  .hero-text h1 { font-size: 1.8rem; }
+  .hero-text h2 { font-size: 1rem; }
   .hello { font-size: 12px; }
 
   /* Remove negative top margin that can cause clipping on very small screens */
   .about-header { margin-top: 0; }
+  
+  /* Ensure hero fits in one screen */
+  .hero-image {
+    margin-bottom: -40px; /* Less negative margin for smaller screens */
+  }
 }
 
 @media (max-width: 380px) {
