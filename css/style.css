@@ -1,3 +1,8 @@
+/* Global box-sizing to prevent mobile zoom */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
 /* CSS Variables for theming */
 :root {
   --bg-primary: #f4f7fb;
@@ -40,6 +45,8 @@ body {
   line-height: 1.6;
   overflow-x: hidden;
   transition: background-color 0.3s ease, color 0.3s ease;
+  -webkit-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
 }
 
 /* Typography Scale */
@@ -1624,6 +1631,8 @@ p {
   gap: 30px;
 }
 
+
+
 .story-text {
   flex: 3;
   background: #f8f9fa;
@@ -2404,7 +2413,7 @@ section {
   background: #e6007a;
   border: 4px solid #fff;
   border-radius: 50%;
-  top: 5px;
+  top: 12px; /* slight downshift to align with date pill vertically */
   box-shadow: 0 0 0 4px #e6007a, 0 0 20px rgba(230, 0, 122, 0.4);
   z-index: 2;
 }
@@ -2417,7 +2426,7 @@ section {
 }
 
 .timeline-item.left::before {
-  right: -50px;
+  right: -62px; /* Move closer to center line */
   transform: translateX(50%);
 }
 
@@ -2532,8 +2541,9 @@ section {
   margin-bottom: 0;
 }
 
-/* Responsive Design for Experience */
+/* Responsive Design for Experience - Complete Restructure */
 @media (max-width: 1024px) {
+  /* Keep alternating layout but move dates inline for tablets */
   .timeline-item.left .timeline-date,
   .timeline-item.right .timeline-date {
     position: relative;
@@ -2562,35 +2572,84 @@ section {
     font-size: 2rem;
   }
   
-  .timeline::before {
-    left: 20px;
+  /* Complete mobile timeline restructure */
+  .timeline {
+    padding: 20px 0;
+    margin-left: 0;
+    margin-right: 0;
   }
   
+  .timeline::before {
+    left: 30px;
+    width: 2px;
+    top: 0;
+    bottom: 0;
+  }
+  
+  .timeline::after {
+    left: 30px;
+    transform: translateX(-50%);
+    top: 0;
+    width: 10px;
+    height: 10px;
+  }
+  
+  .timeline-end-circle {
+    left: 30px;
+    transform: translateX(-50%);
+    bottom: 0;
+    width: 10px;
+    height: 10px;
+  }
+  
+  /* All timeline items become left-aligned single column */
   .timeline-item {
     width: 100%;
     left: 0 !important;
-    padding-left: 60px;
-    padding-right: 20px;
+    padding: 0 20px 0 70px;
+    margin-bottom: 30px;
     text-align: left !important;
-    margin-bottom: 40px;
   }
   
-.timeline-item::before {
-    left: 10px !important;
+  .timeline-item.left,
+  .timeline-item.right {
+    left: 0 !important;
+    width: 100%;
+    padding: 0 20px 0 70px;
+    text-align: left;
+  }
+  
+  .timeline-item::before {
+    left: 30px !important;
+    transform: translateX(-50%) !important;
     right: auto !important;
+    width: 16px;
+    height: 16px;
+    top: 8px;
   }
   
-  .timeline-item .timeline-date {
+  /* Date pills positioned above content */
+  .timeline-item .timeline-date,
+  .timeline-item.left .timeline-date,
+  .timeline-item.right .timeline-date {
     position: relative !important;
     left: 0 !important;
     right: 0 !important;
     top: 0 !important;
-    margin-bottom: 15px;
-    display: inline-block;
+    margin: 0 0 12px 0 !important;
+    display: block !important;
+    width: fit-content;
   }
   
   .timeline-content {
-    padding: 24px;
+    padding: 18px;
+    margin: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: none;
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+    box-sizing: border-box;
   }
   
   .timeline-content h3 {
@@ -2603,6 +2662,72 @@ section {
   
   .timeline-content li {
     font-size: 0.9rem;
+  }
+}
+
+/* Extra small devices (iPhone SE, etc.) */
+@media (max-width: 480px) {
+  .timeline {
+    padding: 15px 0;
+  }
+  
+  .timeline::before {
+    left: 25px;
+  }
+  
+  .timeline::after,
+  .timeline-end-circle {
+    left: 25px;
+  }
+  
+  .timeline-item {
+    padding: 0 15px 0 60px;
+    margin-bottom: 25px;
+  }
+  
+  .timeline-item.left,
+  .timeline-item.right {
+    padding: 0 15px 0 60px;
+  }
+  
+  .timeline-item::before {
+    left: 25px !important;
+    width: 14px;
+    height: 14px;
+  }
+  
+  .timeline-content {
+    padding: 14px;
+    width: 100%;
+    max-width: none;
+    box-sizing: border-box;
+  }
+  
+  .timeline-content h3 {
+    font-size: 1.1rem;
+  }
+  
+  .timeline-content h4 {
+    font-size: 0.95rem;
+  }
+  
+  .timeline-content li {
+    font-size: 0.85rem;
+  }
+}
+
+/* Large devices - enhance desktop experience */
+@media (min-width: 1200px) {
+  .timeline {
+    max-width: 1200px;
+  }
+  
+  .timeline-item {
+    margin-bottom: 60px;
+  }
+  
+  .timeline-content {
+    padding: 40px;
   }
 }
 
@@ -2793,4 +2918,48 @@ section {
     width: 40px;
     height: 40px;
   }
+}
+
+/*
+  Additional responsive refinements
+  - Keep appearance consistent, scale elements fluidly on smaller screens
+*/
+
+/* Scale hero illustration progressively */
+@media (max-width: 1200px) {
+  .profile-wrapper { width: 520px; height: 520px; }
+  .profile-wrapper::before { width: 480px; height: 480px; }
+  .profile-wrapper::after { width: 420px; height: 420px; }
+  .hero-image img { width: 340px; height: 340px; }
+}
+
+@media (max-width: 900px) {
+  .profile-wrapper { width: 420px; height: 420px; }
+  .profile-wrapper::before { width: 380px; height: 380px; }
+  .profile-wrapper::after { width: 320px; height: 320px; }
+  .hero-image img { width: 280px; height: 280px; }
+}
+
+@media (max-width: 600px) {
+  .profile-wrapper { width: 320px; height: 320px; }
+  .profile-wrapper::before { width: 290px; height: 290px; }
+  .profile-wrapper::after { width: 250px; height: 250px; }
+  .hero-image img { width: 220px; height: 220px; }
+
+  /* Slightly reduce hero text for small screens to maintain layout */
+  .hero-text h1 { font-size: 2rem; }
+  .hero-text h2 { font-size: 1.05rem; }
+  .hello { font-size: 12px; }
+
+  /* Remove negative top margin that can cause clipping on very small screens */
+  .about-header { margin-top: 0; }
+}
+
+@media (max-width: 380px) {
+  .profile-wrapper { width: 280px; height: 280px; }
+  .profile-wrapper::before { width: 250px; height: 250px; }
+  .profile-wrapper::after { width: 220px; height: 220px; }
+  .hero-image img { width: 190px; height: 190px; }
+
+  .hero-text h1 { font-size: 1.8rem; }
 }
